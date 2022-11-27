@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProducerKafka } from './application/producer';
-import { KafkaRepositoty } from './infra/kafka.repository';
 
 @Module({
   imports: [
@@ -24,11 +22,6 @@ import { KafkaRepositoty } from './infra/kafka.repository';
     ]),
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    ProducerKafka,
-    ClientKafka,
-    { provide: 'kafkarepository', useClass: KafkaRepositoty },
-  ],
+  providers: [AppService, ClientKafka],
 })
 export class AppModule {}
